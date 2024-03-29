@@ -1,3 +1,13 @@
+"""
+Bước 1. Đổi các biến : label (nhãn cần thu thập dữ liệu), farmer (tên người thực hiện)
+Bước 2. Chạy code
+Bước 3. Xem ảnh mẫu trong các folder data để xem dáng tay
+Bước 4. Sau khi thực hiện dáng tay xong thì ấn phím 'r' để bắt đầu record. Sau khi record đủ 200 ảnh thì code tự exit.
+        Lưu ý: xoay  cổ tay hoặc di chuyển tay một chút để tạo sự đa dạng cho dữ liệu
+Bước 5: commit
+Bước 6: nhắn vào nhóm "Đã xong"
+"""
+
 import math
 import os
 
