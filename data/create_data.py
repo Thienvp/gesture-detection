@@ -20,8 +20,8 @@ offset = 20
 imgSize = 200
 
 # Change only here
-label = "stop"  # left / right / up / stop
-farmer = "thien"  # Replace by your NAME
+label = ""  # left / right / up / stop
+farmer = ""  # Replace by your NAME
 # End changeable Section
 
 record = False
@@ -33,7 +33,7 @@ while True:
         print("Error: can not get image!!")
         break
     img = cv2.flip(img, 1)
-    hand, img = detector.findHands(img)
+    hand, img = detector.findHands(img,draw=False)
     if hand:
         hand = hand[0]
         x, y, w, h = hand['bbox']
@@ -44,10 +44,10 @@ while True:
         else:
             padding = (w - h)/2
             imgCrop = img[y - math.ceil(padding) - offset: y + h + math.floor(padding) + offset, x - offset: x + w + offset]
-        # imgCrop = img[y - offset: y + h + offset, x - offset: x + w + offset]
         imgCrop = cv2.flip(imgCrop, 1)
 
-        if imgCrop is not None:
+        if imgCrop is not None and imgCrop.shape[0] * imgCrop.shape[1] != 0:
+            imgCrop = cv2.resize(imgCrop, (200, 200))
             cv2.imshow("Cropped Image", imgCrop)
             if record:
                 path = os.path.join(label, f"{farmer}-{label}-{counter}.jpg")
