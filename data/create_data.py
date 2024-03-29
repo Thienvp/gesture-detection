@@ -26,6 +26,7 @@ farmer = "thien"  # Replace by your NAME
 
 record = False
 counter = 0
+Max = 0
 while True:
     success, img = cap.read()
     if not success:
@@ -36,18 +37,17 @@ while True:
     if hand:
         hand = hand[0]
         x, y, w, h = hand['bbox']
-        imgCrop = img[y - offset: y + h + offset, x - offset: x + w + offset]
+        ratio = h/w
+        if ratio > 1:
+            padding = (h - w)/2
+            imgCrop = img[y - offset: y + h + offset, x - math.ceil(padding) - offset: x + w + math.floor(padding) + offset]
+        else:
+            padding = (w - h)/2
+            imgCrop = img[y - math.ceil(padding) - offset: y + h + math.floor(padding) + offset, x - offset: x + w + offset]
+        # imgCrop = img[y - offset: y + h + offset, x - offset: x + w + offset]
         imgCrop = cv2.flip(imgCrop, 1)
 
         if imgCrop is not None:
-            if h / w > 1:
-                k = imgSize / h
-                wCal = math.ceil(k * w)
-                imgCrop = cv2.resize(imgCrop, (wCal, imgSize))
-            else:
-                k = imgSize / w
-                hCal = math.ceil(k * h)
-                imgCrop = cv2.resize(imgCrop, (imgSize, hCal))
             cv2.imshow("Cropped Image", imgCrop)
             if record:
                 path = os.path.join(label, f"{farmer}-{label}-{counter}.jpg")
