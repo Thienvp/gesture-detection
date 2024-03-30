@@ -50,7 +50,7 @@ while True:
             imgCrop = cv2.resize(imgCrop, (200, 200))
             cv2.imshow("Cropped Image", imgCrop)
             if record:
-                path = os.path.join(label, f"{farmer}-{label}-{counter}.jpg")
+                path = os.path.join(os.path.dirname(__file__), label, f"{farmer}-{label}-{counter}.jpg")
                 print(path)
                 cv2.imwrite(path, imgCrop)
                 counter += 1
